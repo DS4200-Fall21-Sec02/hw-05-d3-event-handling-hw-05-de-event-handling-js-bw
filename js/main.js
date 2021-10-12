@@ -22,7 +22,27 @@ var changeBoth = (function(){
         d3.selectAll('rect').style('fill', currentRect);
     }
 })();
+var borderRect = (function(){
+  return function(){
+    let border = svg.append('rect')
+    .attr('x', '100')
+    .attr('y', '200')
+    .attr('width', '20%')
+    .attr('height', '20%')
+    .style('stroke-width', 5)
+    .style('stroke', 'black')
+    .style('fill', 'none')
+    .on('click', changeCircle)
+    .on('mouseover', borderRect)
+    .on('mouseout', unBorderRect);
+}
+})();
 
+var unBorderRect = (function(){
+  return function(){
+    d3.selectAll('rect').attr("stroke", "white");
+  }
+})();
 
 let margin = {
     top: 60,
@@ -49,7 +69,10 @@ let rect = svg.append('rect')
   .attr('width', '20%')
   .attr('height', '20%')
   .attr('fill', '#a6cee3')
-  .on('click', changeCircle);
+  .on('click', changeCircle)
+  .on('mouseover', borderRect)
+  .on('mouseout', unBorderRect);
+
 
 // Add a circle 
 let circle = svg.append('circle') 
